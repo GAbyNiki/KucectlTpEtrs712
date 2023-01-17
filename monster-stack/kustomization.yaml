@@ -1,0 +1,4 @@
+resources:
+    - monster-icon-full.yaml
+    - dnmonster-full.yaml
+    - redis-full.yaml

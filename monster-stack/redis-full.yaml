@@ -1,0 +1,44 @@
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    app: monsterstack
+spec:
+  ports:
+    - port: 6379
+  selector:
+    app: monsterstack 
+    tier: redis
+  # clusterIP: None
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis 
+  labels:
+    app: monsterstack
+spec:
+  selector:
+    matchLabels:
+      app: monsterstack
+      tier: redis
+  strategy:
+    type: Recreate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: monsterstack
+        tier: redis
+    spec:
+      containers:
+      - image: redis:latest
+        name: dnmonster
+        ports:
+        - containerPort: 6379
+          name: monstericon
